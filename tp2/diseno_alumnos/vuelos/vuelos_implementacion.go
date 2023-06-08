@@ -1,6 +1,8 @@
 package vuelos
 
-import "strconv"
+const (
+	CANCELADO string = "0"
+)
 
 // Vuelo tiene guardada la información de un vuelo.
 type vueloImplementacion struct {
@@ -13,10 +15,10 @@ type vueloImplementacion struct {
 	fecha      string
 	delay      string
 	tiempoAire string
-	cancelado  bool
+	cancelado  string
 }
 
-func CrearVuelo(datos []string, cancelado bool) Vuelo {
+func CrearVuelo(datos []string) Vuelo {
 	vuelo := new(vueloImplementacion)
 	vuelo.numero = datos[0]
 	vuelo.aerolinea = datos[1]
@@ -27,7 +29,7 @@ func CrearVuelo(datos []string, cancelado bool) Vuelo {
 	vuelo.fecha = datos[6]
 	vuelo.delay = datos[7]
 	vuelo.tiempoAire = datos[8]
-	vuelo.cancelado = cancelado
+	vuelo.cancelado = datos[9]
 	return vuelo
 }
 
@@ -41,16 +43,11 @@ func (v *vueloImplementacion) Recorrido() string {
 }
 
 func (v *vueloImplementacion) InfoCompleta() []string {
-	estado := "no"
-	if v.cancelado {
-		estado = "si"
-	}
-	datos := []string{v.numero, v.aerolinea, v.origen, v.destino, v.numeroCola, v.fecha, v.delay, v.tiempoAire, estado}
+	datos := []string{v.numero, v.aerolinea, v.origen, v.destino, v.numeroCola, v.fecha, v.delay, v.tiempoAire, v.cancelado}
 
 	return datos
 }
-func (v *vueloImplementacion) PrioridadNumero() (int, int) {
-	numeroP, _ := strconv.Atoi(v.prioridad)
-	numeroV, _ := strconv.Atoi(v.numero)
-	return numeroP, numeroV
+func (v *vueloImplementacion) PrioridadNumero() []string {
+	dato := []string{v.prioridad, v.numero}
+	return dato
 }

@@ -13,5 +13,5 @@ type Vuelo interface {
 	InfoCompleta() []string
 
 	//PrioridadNumero devolvera la prioridad y el numero de vuelo
-	PrioridadNumero() (int, int)
+	PrioridadNumero() []string
 }
